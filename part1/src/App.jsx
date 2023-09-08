@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import viteLogo from '/vite.svg';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function Header(course) {
+  return <h1>{course.course}</h1>;
 }
 
-export default App
+function Content(content) {
+  return (
+    <div>
+      <Part
+        part={content.content[0].part}
+        exercises={content.content[0].exercises}
+      />
+      <Part
+        part={content.content[1].part}
+        exercises={content.content[1].exercises}
+      />
+      <Part
+        part={content.content[2].part}
+        exercises={content.content[2].exercises}
+      />
+    </div>
+  );
+}
+
+function Total(total) {
+  return <p>Number of exercises {total.total}</p>;
+}
+
+function Part(content) {
+  console.log(content);
+  return (
+    <p>
+      {content.part} {content.exercises}
+    </p>
+  );
+}
+
+function App() {
+  const course = 'Half Stack application development';
+
+  const content = [
+    { part: 'Fundamentals of React', exercises: 10 },
+    { part: 'Using props to pass data', exercises: 7 },
+    { part: 'State of a component', exercises: 14 },
+  ];
+
+  return (
+    <div>
+      <Header course={course} />
+      <Content content={content} />
+
+      <Total
+        total={
+          content[0].exercises + content[1].exercises + content[2].exercises
+        }
+      />
+    </div>
+  );
+}
+
+export default App;
