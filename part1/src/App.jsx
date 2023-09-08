@@ -1,63 +1,57 @@
 import { useState } from 'react';
 import viteLogo from '/vite.svg';
 
-function Header(course) {
-  return <h1>{course.course}</h1>;
-}
+const Header = (props) => {
+  console.log(props);
+  return <h1>{props.course}</h1>;
+};
 
-function Content(content) {
+const Content = (parts) => {
   return (
     <div>
-      <Part
-        part={content.content[0].part}
-        exercises={content.content[0].exercises}
-      />
-      <Part
-        part={content.content[1].part}
-        exercises={content.content[1].exercises}
-      />
-      <Part
-        part={content.content[2].part}
-        exercises={content.content[2].exercises}
-      />
+      <Part name={parts.parts[0].name} exercises={parts.parts[0].exercises} />
+      <Part name={parts.parts[1].name} exercises={parts.parts[1].exercises} />
+      <Part name={parts.parts[2].name} exercises={parts.parts[2].exercises} />
     </div>
   );
-}
+};
 
-function Total(total) {
-  return <p>Number of exercises {total.total}</p>;
-}
-
-function Part(content) {
-  console.log(content);
+const Total = (parts) => {
   return (
     <p>
-      {content.part} {content.exercises}
+      Number of exercises{' '}
+      {parts.parts[0].exercises +
+        parts.parts[1].exercises +
+        parts.parts[2].exercises}
     </p>
   );
-}
+};
 
-function App() {
-  const course = 'Half Stack application development';
+const Part = (part) => {
+  return (
+    <p>
+      {part.name} {part.exercises}
+    </p>
+  );
+};
 
-  const content = [
-    { part: 'Fundamentals of React', exercises: 10 },
-    { part: 'Using props to pass data', exercises: 7 },
-    { part: 'State of a component', exercises: 14 },
-  ];
+const App = () => {
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      { name: 'Fundamentals of React', exercises: 10 },
+      { name: 'Using props to pass data', exercises: 7 },
+      { name: 'State of a component', exercises: 14 },
+    ],
+  };
 
   return (
     <div>
-      <Header course={course} />
-      <Content content={content} />
-
-      <Total
-        total={
-          content[0].exercises + content[1].exercises + content[2].exercises
-        }
-      />
+      <Header course={course.name} />
+      <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </div>
   );
-}
+};
 
 export default App;
