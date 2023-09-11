@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import viteLogo from '/vite.svg';
 
 const Display = ({ counter }) => <div>{counter}</div>;
 
